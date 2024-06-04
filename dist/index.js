@@ -1,4 +1,4 @@
-import QrScanner from './node_modules/qr-scanner/qr-scanner.min.js';
+import QrScanner from '../node_modules/qr-scanner/qr-scanner.min.js';
 
 const fileInput = document.getElementById('image');
 const resultDiv = document.getElementById('result');
