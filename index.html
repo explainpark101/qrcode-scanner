@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>QRCode Scanner</title>
+    <link rel="stylesheet" href="./index.css"/>
+</head>
+<body>
+    <main>
+        <h2>QRCode Scanner</h2>
+        <hr/>
+        <fieldset>
+            <legend>이미지 파일 선택하기</legend>
+            <input type="file" name="image" id="image"/>
+        </fieldset>
+        <fieldset>
+            <legend>또는 카메라로 스캔하기</legend>
+            <button type="button" id="camera-on">카메라 켜기</button>
+            <div id="videos">
+
+            </div>
+        </fieldset>
+
+        <article>
+            <h4>결과물</h4>
+            <hr/>
+            <div id="result">
+
+            </div>
+        </article>
+    </main>
+    <footer>
+        제작: explainpark101
+        <br/>
+        <a href="https://github.com/explainpark101" target="_blank">GitHub</a>
+    </footer>
+    <script type="module" src="./index.js"></script>
+</body>
+</html>

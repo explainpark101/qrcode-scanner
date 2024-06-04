@@ -1,0 +1,28 @@
+html, body {
+    width: 100vw;
+    min-height: 100dvh;
+    min-height: 100vh;
+    display: grid;
+    margin: 0;
+}
+body > main {
+    min-height: 90vh;
+    margin-inline: 2rem;
+}
+body > footer {
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+article:not(:has(div#result :first-child)):has(div#result) {
+    display: none;
+}
+#videos {
+    display: grid;
+    justify-content: center;
+}
+#videos > video {
+    max-width: 90%;
+}
