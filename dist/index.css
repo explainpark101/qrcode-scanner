@@ -26,3 +26,10 @@ article:not(:has(div#result :first-child)):has(div#result) {
 #videos > video {
     max-width: 90%;
 }
+#image {
+    display: grid;
+    justify-content: center;
+    & > img {
+        max-width: 90%;
+    }
+}
