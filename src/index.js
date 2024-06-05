@@ -1,4 +1,7 @@
-import QrScanner from '../node_modules/qr-scanner/qr-scanner.min.js';
+import QrScanner from 'qr-scanner';
+import { Html5Qrcode } from "html5-qrcode";
+
+const QRCodeScanner = new Html5Qrcode("reader");
 
 const fileInput = document.getElementById('image');
 const resultDiv = document.getElementById('result');
@@ -22,7 +25,12 @@ fileInput.addEventListener("input", async e=>{
     try {
         const result = await QrScanner.scanImage(fileInput.files?.[0]);
         if (/^https?:\/\/.*/.test(result)) resultDiv.innerHTML = `<a href="${result}" target="_blank">${result}</a>`;
-        else resultDiv.innerHTML = result;
+        else {
+            const elem = document.createElement(`span`);
+            elem.innerText = result
+            resultDiv.innerHTML = '';
+            resultDiv.appendChild(elem);
+        }
 
         const imgElement = (document.querySelector(`img#image`) || document.createElement(`img`));
         imgElement.id = 'image';
@@ -35,12 +43,26 @@ fileInput.addEventListener("input", async e=>{
             alert("Invalid Input. Please input the right image.");
         }
         else if (err == 'No QR code found') {
+            console.log(err);
             const imgElement = (document.querySelector(`img#image`) || document.createElement(`img`));
             imgElement.id = 'image';
             document.querySelector`div#image`.appendChild(imgElement);
 
             imgElement.src = URL.createObjectURL(fileInput.files[0]);
-            alert("No QR code found. Please input the right image.");
+            try {
+                const res2 = await QRCodeScanner.scanFile(fileInput.files?.[0]);
+                if (/^https?:\/\/.*/.test(res2)) resultDiv.innerHTML = `<a href="${res2}" target="_blank">${res2}</a>`;
+                else {
+                    const elem = document.createElement(`span`);
+                    elem.innerText = res2
+                    resultDiv.innerHTML = '';
+                    resultDiv.appendChild(elem);
+                }
+                console.log(res2);
+            }
+            catch(err) {
+                alert("No QR code found. Please input the right image.");
+            }
         }
         else console.error(err);
     }

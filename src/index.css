@@ -33,6 +33,3 @@ article:not(:has(div#result :first-child)):has(div#result) {
         max-width: 90%;
     }
 }
-.d-none {
-    display: none !important;
-}
