@@ -14,11 +14,15 @@ cameraButton.addEventListener("click", e=>{
     document.querySelector(`#videos`).appendChild(videoElement);
     const qrScanner = new QrScanner(videoElement, result => {
         if (/^https?:\/\/.*/.test(result)) resultDiv.innerHTML = `<a href="${result}" target="_blank">${result}</a>`;
-        else resultDiv.innerHTML = result;
+        else {
+            const elem = document.createElement(`span`);
+            elem.innerText = result
+            resultDiv.innerHTML = '';
+            resultDiv.appendChild(elem);
+        }
         resultDiv.scrollIntoView();
     });
     qrScanner.start();
-
 });
 
 fileInput.addEventListener("input", async e=>{
