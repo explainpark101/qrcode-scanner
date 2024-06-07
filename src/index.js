@@ -1,5 +1,6 @@
 import QrScanner from 'qr-scanner';
-import { Html5Qrcode } from "html5-qrcode";
+import { Html5Qrcode, Html5QrcodeScanner } from "html5-qrcode";
+/** https://scanapp.org/html5-qrcode-docs/docs/intro */
 
 const QRCodeScanner = new Html5Qrcode("reader");
 
@@ -9,20 +10,23 @@ const cameraButton = document.getElementById('camera-on');
 
 cameraButton.addEventListener("click", e=>{
     cameraButton.style.display = 'none';
-
-    const videoElement = document.createElement('video');
-    document.querySelector(`#videos`).appendChild(videoElement);
-    const qrScanner = new QrScanner(videoElement, result => {
-        if (/^https?:\/\/.*/.test(result)) resultDiv.innerHTML = `<a href="${result}" target="_blank">${result}</a>`;
+    const scanner = new Html5QrcodeScanner("reader", {
+        fps: 10,
+        qrbox: {
+            width: 800,
+            height: 800
+        }
+    });
+    scanner.render((decodedText, decodedResult) => {
+        if (/^https?:\/\/.*/.test(decodedText)) resultDiv.innerHTML = `<a href="${decodedText}" target="_blank">${decodedText}</a>`;
         else {
             const elem = document.createElement(`span`);
-            elem.innerText = result
+            elem.innerText = decodedText
             resultDiv.innerHTML = '';
             resultDiv.appendChild(elem);
         }
         resultDiv.scrollIntoView();
-    });
-    qrScanner.start();
+    }, (error) => {console.warn(`Code scan error = ${error}`);})
 });
 
 fileInput.addEventListener("input", async e=>{
